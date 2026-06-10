@@ -1,0 +1,815 @@
+Procedure for the 2D Graphics Editor Project
+Step 1: Create a GitHub Repository
+Log in to GitHub.
+Click New Repository.
+Name it 2D-Graphics-Editor.
+Create the repository.
+Step 2: Create Project Folder
+
+Create a folder on your computer:
+
+2D-Graphics-Editor
+│
+├── main.c
+├── graphics.h
+├── graphics.c
+└── README.md
+Step 3: Create a 2D Character Array
+
+Define the canvas:
+
+#define ROWS 30
+#define COLS 60
+
+char canvas[ROWS][COLS];
+
+The canvas will store:
+
+* → drawing
+_ → empty space
+Step 4: Initialize the Canvas
+
+Fill the entire canvas with _.
+
+void initCanvas()
+{
+    for(int i=0;i<ROWS;i++)
+        for(int j=0;j<COLS;j++)
+            canvas[i][j]='_';
+}
+Step 5: Display the Canvas
+
+Print the contents of the canvas on the screen.
+
+void displayCanvas()
+{
+    for(int i=0;i<ROWS;i++)
+    {
+        for(int j=0;j<COLS;j++)
+            printf("%c",canvas[i][j]);
+        printf("\n");
+    }
+}
+Step 6: Implement Drawing Functions
+
+Create separate functions for:
+
+Draw Line
+Draw Rectangle
+Draw Triangle
+Draw Circle
+
+Each function should place * characters at the required positions in the canvas.
+
+Step 7: Add Objects
+
+Allow the user to select a shape and enter coordinates.
+
+Example:
+
+1. Line
+2. Rectangle
+3. Triangle
+4. Circle
+
+After receiving input, call the corresponding drawing function.
+
+Step 8: Delete Objects
+
+Replace selected drawing area with _.
+
+Example:
+
+eraseArea(x,y,width,height);
+Step 9: Modify Objects
+
+Provide options such as:
+
+Delete old shape
+Enter new coordinates
+Redraw shape
+Step 10: Create Menu-Driven Program
+----- GRAPHICS EDITOR -----
+
+1. Draw Line
+2. Draw Rectangle
+3. Draw Triangle
+4. Draw Circle
+5. Delete Area
+6. Modify Object
+7. Display Canvas
+8. Exit
+
+Use a switch statement to process the user's choice.
+
+Step 11: Test the Program
+
+Verify:
+
+Shapes are drawn correctly.
+Delete operation works.
+Modify operation works.
+Display function shows the updated canvas.
+Step 12: Create README.md
+
+Include:
+
+Project title
+Objective
+Features
+Sample output
+How to compile and run
+
+Example:
+
+gcc main.c graphics.c -o editor -lm
+./editor
+Step 13: Push to GitHub Daily
+
+First time:
+
+git init
+git add .
+git commit -m "Initial Commit"
+git branch -M main
+git remote add origin <repository-url>
+git push -u origin main
+
+Daily work:
+
+git add .
+git commit -m "Added circle drawing"
+git push
+Flow of Execution
+Start
+  ↓
+Initialize Canvas
+  ↓
+Display Menu
+  ↓
+User Choice
+  ↓
+Draw/Delete/Modify
+  ↓
+Update Canvas
+  ↓
+Display Canvas
+  ↓
+Exit
+
+This procedure is suitable to include in your project report or viva explanation.Step-by-Step Guide for Beginners
+Step 1: Create a GitHub Repository
+Open your browser.
+Go to GitHub.
+Sign in.
+Click New Repository.
+
+Enter repository name:
+
+2D-Graphics-Editor
+Click Create Repository.
+Step 2: Create a Project Folder
+
+On your computer:
+
+Create a new folder named:
+
+2D-Graphics-Editor
+
+Inside it create:
+
+main.c
+README.md
+
+Initially, you can keep everything in main.c.
+
+Step 3: Write Basic Program
+
+Open main.c and type:
+
+#include<stdio.h>
+
+#define ROWS 20
+#define COLS 40
+
+char canvas[ROWS][COLS];
+What does this mean?
+ROWS 20 → 20 rows
+COLS 40 → 40 columns
+canvas → stores the picture
+
+Think of it like a notebook grid.
+
+Step 4: Initialize Canvas
+
+Add:
+
+void initCanvas()
+{
+    int i,j;
+
+    for(i=0;i<ROWS;i++)
+    {
+        for(j=0;j<COLS;j++)
+        {
+            canvas[i][j]='_';
+        }
+    }
+}
+What happens?
+
+Every position becomes:
+
+________________________________________
+________________________________________
+________________________________________
+Step 5: Display Canvas
+
+Add:
+
+void displayCanvas()
+{
+    int i,j;
+
+    for(i=0;i<ROWS;i++)
+    {
+        for(j=0;j<COLS;j++)
+        {
+            printf("%c",canvas[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+This prints the picture on the screen.
+
+Step 6: Test Program
+
+Add:
+
+int main()
+{
+    initCanvas();
+    displayCanvas();
+
+    return 0;
+}
+
+Compile and run.
+
+Output:
+
+________________________________________
+________________________________________
+________________________________________
+...
+
+If this works, move to the next step.
+
+Step 7: Draw a Rectangle
+
+Add:
+
+void drawRectangle(int x,int y,int width,int height)
+{
+    int i;
+
+    for(i=x;i<x+width;i++)
+    {
+        canvas[y][i]='*';
+        canvas[y+height-1][i]='*';
+    }
+
+    for(i=y;i<y+height;i++)
+    {
+        canvas[i][x]='*';
+        canvas[i][x+width-1]='*';
+    }
+}
+Step 8: Call Rectangle Function
+
+In main():
+
+int main()
+{
+    initCanvas();
+
+    drawRectangle(5,3,10,5);
+
+    displayCanvas();
+
+    return 0;
+}
+
+Output:
+
+_____**********
+_____*________*
+_____*________*
+_____*________*
+_____**********
+Step 9: Draw a Line
+
+Add:
+
+void drawLine(int x1,int y1,int x2,int y2)
+{
+    int i;
+
+    if(y1==y2)
+    {
+        for(i=x1;i<=x2;i++)
+            canvas[y1][i]='*';
+    }
+}
+
+Test:
+
+drawLine(2,10,20,10);
+Step 10: Draw Triangle
+
+Add:
+
+void drawTriangle(int x,int y,int h)
+{
+    int i;
+
+    for(i=0;i<h;i++)
+    {
+        canvas[y+i][x-i]='*';
+        canvas[y+i][x+i]='*';
+    }
+
+    for(i=x-h+1;i<=x+h-1;i++)
+    {
+        canvas[y+h-1][i]='*';
+    }
+}
+
+Test:
+
+drawTriangle(20,5,6);
+Step 11: Draw Circle
+
+Add:
+
+#include<math.h>
+
+void drawCircle(int cx,int cy,int r)
+{
+    int angle;
+
+    for(angle=0;angle<360;angle++)
+    {
+        int x=cx+r*cos(angle*3.14/180);
+        int y=cy+r*sin(angle*3.14/180);
+
+        canvas[y][x]='*';
+    }
+}
+
+Test:
+
+drawCircle(25,10,5);
+
+Compile using:
+
+gcc main.c -lm
+
+-lm links the math library.
+
+Step 12: Delete Area
+
+Add:
+
+void eraseArea(int x,int y,int w,int h)
+{
+    int i,j;
+
+    for(i=y;i<y+h;i++)
+    {
+        for(j=x;j<x+w;j++)
+        {
+            canvas[i][j]='_';
+        }
+    }
+}
+
+Example:
+
+eraseArea(5,3,10,5);
+
+The rectangle disappears.
+
+Step 13: Create Menu
+
+Inside main():
+
+int choice;
+
+while(1)
+{
+    printf("\n1.Rectangle");
+    printf("\n2.Line");
+    printf("\n3.Triangle");
+    printf("\n4.Circle");
+    printf("\n5.Display");
+    printf("\n6.Exit");
+
+    scanf("%d",&choice);
+
+    switch(choice)
+    {
+        case 1:
+            drawRectangle(5,3,10,5);
+            break;
+
+        case 2:
+            drawLine(2,10,20,10);
+            break;
+
+        case 3:
+            drawTriangle(20,5,6);
+            break;
+
+        case 4:
+            drawCircle(25,10,5);
+            break;
+
+        case 5:
+            displayCanvas();
+            break;
+
+        case 6:
+            return 0;
+    }
+}
+Step 14: Push to GitHub
+
+Open terminal in project folder:
+
+git init
+git add .
+git commit -m "Initial graphics editor"
+
+Connect repository:
+
+git remote add origin YOUR_REPOSITORY_LINK
+git push -u origin main
+Step 15: Daily Progress
+
+Day 1:
+
+Create canvas
+Display canvas
+
+Day 2:
+
+Rectangle
+
+Day 3:
+
+Line
+
+Day 4:
+
+Triangle
+
+Day 5:
+
+Circle
+
+Day 6:
+
+Delete and Modify
+
+Day 7:
+
+README and screenshots
+
+This approach also gives you multiple commits, which helps satisfy the "daily push to GitHub is mandatory" requirement.That error usually means you haven't made a commit yet, so there's no main branch to push.
+
+Run these commands one by one and paste the output if any step fails:
+
+git status
+
+Then:
+
+git add .
+
+Then:
+
+git commit -m "Initial commit"
+
+If Git asks for your name/email, set them:
+
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+Then commit again.
+
+After the commit succeeds, check your branch:
+
+git branch
+
+If you see:
+
+* master
+
+then push with:
+
+git push -u origin master
+
+If you see:
+
+* main
+
+then push with:
+
+git push -u origin main
+
+The quickest way to diagnose it is for you to paste the output of:
+
+git status
+git branch
+
+and I'll tell you the exact next command.
+
+fatal: unable to auto-detect email address (got 'SHRI LAXMI HUDED@LAPTOP-T3T2EMQC.(none)')
+PS C:\Users\SHRI LAXMI HUDED\OneDrive\Documents\2D-Graphics-Editor> git config --global user.name "srushtimyakal99-ai"
+>> git config --global user.email "srushtimyakal99@gmail.com" 
+PS C:\Users\SHRI LAXMI HUDED\OneDrive\Documents\2D-Graphics-Editor> then what to do
+
+Great! ✅ You fixed the Git username and email.
+
+Now run these commands one by one:
+
+1. Commit your files
+git commit -m "Initial commit"
+
+If it says something like:
+
+1 file changed...
+
+that's good.
+
+2. Check your branch
+git branch
+
+Tell me what it shows.
+
+Example:
+
+* master
+
+or
+
+* main
+3. Push
+
+If branch is master:
+
+git push -u origin master
+
+If branch is main:
+
+git push -u origin main
+If you're not sure
+
+Run these two commands and paste the output:
+
+git commit -m "Initial commit"
+git branch
+
+Then I'll give you the exact next command. We're almost done getting your repository connected. 🚀
+
+>> git config --global user.email "srushtimyakal99@gmail.com" 
+PS C:\Users\SHRI LAXMI HUDED\OneDrive\Documents\2D-Graphics-Editor> git commit -m "Initial commit"
+[main (root-commit) c6579be] Initial commit
+ 2 files changed, 37 insertions(+)
+ create mode 100644 editor.exe
+ create mode 100644 main.c
+PS C:\Users\SHRI LAXMI HUDED\OneDrive\Documents\2D-Graphics-Editor> 
+
+Perfect! 🎉
+
+Your commit was created successfully:
+
+[main (root-commit) c6579be] Initial commit
+
+This means:
+
+✅ Git is initialized
+✅ Files are committed
+✅ Your branch is main
+
+Now push to GitHub:
+
+git push -u origin main
+
+If GitHub asks you to sign in, complete the login in your browser.
+
+If push succeeds
+
+You'll see something like:
+
+Enumerating objects...
+Writing objects...
+To https://github.com/...
+ * [new branch]      main -> main
+
+Then visit:
+
+Your Repository
+
+and refresh the page. You should see main.c.
+
+Small improvement
+
+I noticed Git committed:
+
+editor.exe
+main.c
+
+Usually you should not upload .exe files. Later, create a .gitignore file containing:
+
+*.exe
+
+For now, it's okay—just get the first push working.
+
+Run:
+
+git push -u origin main
+
+and tell me exactly what output you get. 🚀
+
+The reason you're not seeing the circle clearly is that you're drawing all shapes first:
+
+drawRectangle(5, 3, 10, 5);
+drawLine(2, 15, 20, 15);
+drawTriangle(30, 2, 6);
+drawCircle(20,10,5);
+displayCanvas();
+
+and then the menu starts. The circle may overlap with other shapes and be hard to notice.
+
+First, test the circle alone
+
+Temporarily change main() to:
+
+int main()
+{
+    initCanvas();
+
+    drawCircle(20,10,5);
+
+    displayCanvas();
+
+    return 0;
+}
+
+Compile:
+
+gcc main.c -o editor -lm
+
+Run:
+
+.\editor.exe
+
+If you see a circle, then the function works.
+
+Better circle function
+
+Replace your current drawCircle() with:
+
+void drawCircle(int centerX, int centerY, int radius)
+{
+    int x, y;
+
+    for(y = 0; y < ROWS; y++)
+    {
+        for(x = 0; x < COLS; x++)
+        {
+            int dx = x - centerX;
+            int dy = y - centerY;
+
+            int distSq = dx*dx + dy*dy;
+            int rSq = radius*radius;
+
+            if(abs(distSq - rSq) <= radius)
+            {
+                canvas[y][x] = '*';
+            }
+        }
+    }
+}
+For submission
+
+I would also remove these lines from the start of main():
+
+drawRectangle(5, 3, 10, 5);
+drawLine(2, 15, 20, 15);
+drawTriangle(30, 2, 6);
+drawCircle(20,10,5);
+displayCanvas();
+
+and let the menu draw the shapes.
+
+Start main() like:
+
+int main()
+{
+    initCanvas();
+
+    int choice;
+
+Then choose:
+
+1 → Rectangle
+2 → Line
+3 → Triangle
+4 → Circle
+
+and the canvas will update.
+
+If you compile and still don't see the circle, paste the output screenshot and I can pinpoint the issue.
+
+but in output i want rectangle triangle circle line at time and now i cant remove any line pls tell what changes i have to make
+
+If you want Rectangle + Line + Triangle + Circle all visible at the same time, then keep these lines:
+
+drawRectangle(5, 3, 10, 5);
+drawLine(2, 15, 20, 15);
+drawTriangle(30, 2, 6);
+drawCircle(20,10,5);
+displayCanvas();
+
+The problem is likely that the circle is being drawn too close to other shapes or is too thin to notice.
+
+Change only this line:
+drawCircle(20,10,5);
+
+to
+
+drawCircle(30,10,4);
+
+or
+
+drawCircle(10,12,4);
+
+so the circle appears in a more open area.
+
+Also improve the circle function
+
+Replace:
+
+if(distance >= radius - 0.5 && distance <= radius + 0.5)
+
+with:
+
+if(distance <= radius)
+
+This will draw a filled circle, making it much easier to see.
+
+So:
+
+void drawCircle(int centerX, int centerY, int radius)
+{
+    int x, y;
+
+    for(y = 0; y < ROWS; y++)
+    {
+        for(x = 0; x < COLS; x++)
+        {
+            int dx = x - centerX;
+            int dy = y - centerY;
+
+            double distance = sqrt(dx * dx + dy * dy);
+
+            if(distance <= radius)
+            {
+                canvas[y][x] = '*';
+            }
+        }
+    }
+}
+For submission
+
+You can keep:
+
+drawRectangle(5, 3, 10, 5);
+drawLine(2, 15, 20, 15);
+drawTriangle(30, 2, 6);
+drawCircle(30,10,4);
+displayCanvas();
+
+at the start so the evaluator immediately sees all four shapes.
+
+Then keep your menu below it for:
+
+Add Objects
+Delete Objects
+Modify Objects
+
+That satisfies the assignment requirements.
+
